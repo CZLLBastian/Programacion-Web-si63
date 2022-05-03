@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="master.xhtml">
+	<ui:define name="content">
+		<h2>Registro de Aviso</h2>
+		<h:form>
+			<h:outputLabel value="Código de Aviso: " for="id"
+				styleClass="control-label" />
+			<p:inputText id="id" value="#{avisoController.av.idAviso}"
+				styleClass="form-control" required="true"></p:inputText>
+
+			<h:outputLabel value="Precio Habitacion: " for="precio"
+				styleClass="control-label" />
+			<p:inputText id="precio" value="#{avisoController.av.preHabitacion}"
+				styleClass="form-control" required="true"></p:inputText>
+
+			<h:outputLabel value="Rango: " for="rango" styleClass="control-label" />
+			<p:inputText id="rango" value="#{avisoController.av.rangoPrecio}"
+				styleClass="form-control" required="true"></p:inputText>
+
+			<h:outputLabel value="Fecha: " for="fecha" styleClass="control-label" />
+			<p:calendar id="fecha" pattern="dd/MM/yyyy"
+				value="#{avisoController.av.fechaPublicacion}" showOn="button"
+				timeZone="America/Mexico_City"></p:calendar>
+			<br />
+
+			<h:outputLabel value="IdHabitacion" for="cboHabitacion"
+				styleClass="control-label" />
+			<p:selectOneMenu id="cboHabitacion"
+				value="#{avisoController.av.idHabitacion}"
+				converter="omnifaces.SelectItemsConverter">
+				<f:selectItems value="#{avisoController.listahabitacion}" var="h"
+					itemLabel="#{h.descpRoom}" itemValue="#{h}" />
+			</p:selectOneMenu>
+				
+			
+			<p:commandButton value="Grabar"
+				actionListener="#{avisoController.insertA()}"
+				action="listRoom?faces-redirect=true" update="@form"
+				styleClass="btn btn-primary"></p:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

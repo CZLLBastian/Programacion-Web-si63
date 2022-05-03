@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/master.xhtml">
+
+	<ui:define name="content">
+
+		<h2>Lista de habitaciones</h2>
+		<h:form>
+			<div class="row">
+
+				<div class="col-sm-4">
+					<div class="form-group">
+						<h:outputLabel
+							value="Ingrese descripcion de la habitacion a buscar: "
+							for="name" styleClass="control-label" />
+						<p:inputText id="name" value="#{roomController.r.descpRoom}"
+							stypleClass="form-control" />
+						<p:commandButton value="Buscar" update="lstHabitaciones"
+							actionListener="#{roomController.findByNameRoom()}" />
+					</div>
+				</div>
+
+			</div>
+			<p:dataTable id="lstHabitaciones" var="ro"
+				value="#{roomController.listahabitacion}" paginator="true"
+				paginatorPosition="top" rowsPerPageTemplate="5,10,15,20,25" rows="5"
+				emptyMessage="No existen registros" rowsIndexVar="item">
+
+
+				<p:column headerText="Id">
+					<h:outputText value="#{ro.idRoom}" />
+				</p:column>
+
+				<p:column headerText="Descripcion">
+					<h:outputText value="#{ro.descpRoom}" />
+				</p:column>
+
+				<p:column headerText="Dirección">
+					<h:outputText value="#{ro.adress}" />
+				</p:column>
+				<p:column headerText="Id Arrendador">
+					<h:outputText value="#{ro.idArrendador.idArrendador}" />
+				</p:column>
+				<p:column headerText="Id Distrito">
+					<h:outputText value="#{ro.idDistrito.idDistrito}" />
+				</p:column>
+				<p:column headerText="Operación">
+					<h:commandLink action="listRoom" value="Eliminar"
+						actionListener="#{roomController.deleteR(ro)}" />
+				</p:column>
+				<p:column headerText="Operación">
+					<h:commandLink action="#{roomController.preUpdateR(ro)}"
+						value="Modificar" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
